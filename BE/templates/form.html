@@ -1,0 +1,373 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>미세먼지</title>
+    <script src="https://kit.fontawesome.com/dd078ef81c.js" crossorigin="anonymous"></script>
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" href="assets/materialize/css/materialize.min.css" media="screen,projection" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Add Leaflet.js CSS and JS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+    <!-- Bootstrap Styles-->
+    <link href="assets/css/bootstrap.css" rel="stylesheet" />
+    <!-- FontAwesome Styles-->
+    <link href="assets/css/font-awesome.css" rel="stylesheet" />
+    <!-- Morris Chart Styles-->
+    <link href="assets/js/morris/morris-0.4.3.min.css" rel="stylesheet" />
+    <!-- Custom Styles-->
+    <link href="assets/css/custom-styles.css" rel="stylesheet" />
+    <!-- Google Fonts-->
+    <link href='http://fonts.googleapis.com/css?family=Gowun+Dodum' rel='stylesheet' type='text/css' />
+    <link rel="stylesheet" href="assets/js/Lightweight-Chart/cssCharts.css"> 
+    <style>
+    #map {
+        width: 70%;
+        height: 500px;
+        float: left;
+        }
+    #info-container {
+        width: 30%;
+        height: 500px;
+        float: right;
+        overflow-y: auto;
+        padding: 10px;
+        }
+    .shelter-info {
+        margin-bottom: 10px;
+        padding: 5px;
+        border: 1px solid #ddd;
+        }
+    .search-box {
+        width: 70%; /* 필요에 따라 너비 조절 */
+    }
+    .search-container {
+        display: flex;
+        align-items: center;
+        width: 90%;
+        padding: 7px; /* 외부 여백 조절 */
+    }
+
+    .search-container input[type="text"] {
+        flex: 1;
+        font-size: 20px; /* 폰트 크기 조절 */
+        padding: 10px; /* 내부 여백 조절 */
+        height: 23px; /* 높이 설정 */
+        border: 3px solid hwb(0 69% 31%);
+        border-radius: 5px 0 0 5px; /* 좌측에만 둥글게 */
+        outline: none;
+        margin-top: -19px;
+    }
+
+    .search-container button {
+        background-color: hwb(224 0% 0%);
+        color: white;
+        border: none;
+        border-radius: 0 5px 5px 0; /* 우측에만 둥글게 */
+        padding: 10px 20px; /* 내부 여백 조절 */
+        font-size: 20px; /* 폰트 크기 조절 */
+        cursor: pointer;
+        height: 47px; /* 검색창과 동일한 높이 */
+        margin-top: -38px;
+    }
+
+    select.browser-default {
+    font-size: 20px; /* 폰트 크기 조절 (조금 작게) */
+    padding: 7px; /* 내부 여백 조절 (조금 작게) */
+    height: 50px; /* 드롭다운 높이 조절 */
+    width: 90%; /* 드롭다운 너비 */
+    border: 3px solid hwb(0 69% 31%);
+    border-radius: 5px; /* 둥글게 설정 */
+    outline: none;
+    }
+    .mention {
+        font-size: 40px; /* 폰트 크기 조절 */
+        margin-bottom: 15px; /* 아래 여백 설정 */
+    }
+
+    body {
+        font-family: 'Gowun Dodum', sans-serif; /* 'Gowun Dodum' 폰트 적용 */
+    }
+    #shelter-table {
+        display: table;
+        border-collapse: separate;
+        box-sizing: border-box;
+        text-indent: initial;
+        unicode-bidi: isolate;
+        border-spacing: 2px;
+        border-color: gray;
+    }
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        }
+    .paging {
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+    .paging ul {
+        text-aign: center;
+        justify-content: center;
+    }
+    .paging ul li {
+        margin-bottom: 20px; /* 숫자 사이에 조금씩 띄어쓰기 추가 */
+        margin-left: 10px;
+
+    }
+    </style>
+</head>
+
+
+
+<body>
+    <div id="wrapper">
+        <nav class="navbar navbar-default top-navbar" role="navigation">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand waves-effect waves-dark" href="/"><i class="large material-icons">sunny</i> <strong>미세먼지</strong></a>
+				
+		        <div id="sideNav" href=""><i class="material-icons dp48">toc</i></div>  
+            </div>
+        </nav>
+
+		<!-- Dropdown Structure -->
+        <ul id="dropdown1" class="dropdown-content"></ul>
+        <ul id="dropdown2" class="dropdown-content w250"></ul>
+        <ul id="dropdown3" class="dropdown-content dropdown-tasks w250"></ul>
+        <ul id="dropdown4" class="dropdown-content dropdown-tasks w250 taskList"></ul>
+
+	    <!--/. NAV TOP  -->
+        <nav class="navbar-default navbar-side" role="navigation">
+            <div class="sidebar-collapse">
+        <ul class="nav" id="main-menu">
+
+            <li>
+            <a class="waves-effect waves-dark" href="/"><i class="fa fa-dashboard"></i> 오늘의 미세먼지</a>
+            </li>
+
+            <li>
+            <a class="waves-effect waves-dark" href="/chart"><i class="fa fa-bar-chart-o"></i> 미세먼지 예측</a>
+            </li>
+
+            <li>
+            <a  class="active-menu waves-effect waves-dark" href="/form"><i class="fa fa-edit"></i> 미세먼지 대피소 </a>
+            </li>
+            </ul>
+
+            </div>
+
+        </nav>
+        <!-- /. NAV SIDE  -->
+        <div id="page-wrapper" >
+            <div class="header"> 
+                <h1 class="page-header">미세먼지 대피소</h1>
+                    <ol class="breadcrumb">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Forms</a></li>
+                    <li class="active">Data</li>
+                    </ol> 						
+            </div>
+		
+            <div id="page-inner"> 
+
+            <div class="row">
+                <div class="col-lg-8">
+                    <!-- Map container -->
+                    <div id="map" style="width: 100%; height: 500px;">
+                        <script src="assets/js/map.js"></script>
+                    </div>
+                </div>
+            <div class="col-lg-4">
+                <!-- Shelter information container -->
+                <div id="shelter-info"></div>
+            </div>
+        </div><!--  지도 끝 -->
+
+
+<!-- 정보 검색-->
+<div class="row">
+    <div class="col-lg-12">
+        
+        <div class="card">
+            <div class="card-action" style="font-size: 28px;">
+                미세먼지 쉼터 정보를 검색할 수 있습니다.
+            </div>
+            <!-- 시군구 선택 드롭다운 메뉴 -->
+            <div class="card-content">
+                
+                <div class="input-field col s6" style="margin-bottom: 50px;">
+                    <label for="region"></label>
+                    <select id="region" class="browser-default">
+                        <option value="" {% if not region %}selected{% endif %}>시군구 선택</option>
+                        <option value="11">강남구</option>
+                        <option value="12">강동구</option>
+                        <option value="13">강북구</option>
+                        <option value="14">강서구</option>
+                        <option value="15">관악구</option>
+                        <option value="16">영등포구</option>
+                        <option value="17">용산구</option>
+                        <option value="18">종로구</option>
+                        <option value="19">중구</option>
+                        <option value="20">중랑구</option>
+                        <option value="21">광진구</option>
+                        <option value="22">구로구</option>
+                        <option value="23">금천구</option>
+                        <option value="24">노원구</option>
+                        <option value="25">도봉구</option>
+                        <option value="26">동대문구</option>
+                        <option value="27">동작구</option>
+                        <option value="28">마포구</option>
+                        <option value="29">서대문구</option>
+                        <option value="30">서초구</option>
+                        <option value="31">성동구</option>
+                        <option value="32">성북구</option>
+                        <option value="33">송파구</option>
+                    </select>
+            </div>
+
+            <!-- 대피소명 입력 검색창 -->
+            <div class="search-container">
+                <input type="text" id="shelter" name="shelter" placeholder="쉼터 명칭을 입력하세요." value="{{ shelter or '' }}">
+                <button type="submit" id="searchbuttonbig">
+                    <i class="fa-solid fa-magnifying-glass-location"></i>
+                </button>
+            </div>
+
+            <!-- 테이블 -->
+            <div class = 'shelter-table-data'>
+                <table id="shelter-table">
+                    <colgroup>	
+                        <col style="width:5%"> <!--번호-->
+                        <col style="width:8%">
+                        <col style="width:20%"> <!--쉼터명-->
+                        <col style="width:20%"> <!--주소-->
+                        <col style="width:5%"> <!--시설유형-->
+                        <col style="width:15%"> <!--이용가능 인원-->
+                        <col style="width:7%">
+                        <col style="width:20%">
+
+                        <col>
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th>번호</th>
+                            <th>지역명</th>
+                            <th>쉼터명</th>
+                            <th>주소</th>
+                            <th>시설유형</th>
+                            <th>이용가능<br/>인원(명)</th>
+                            <th>연락처</th>
+                            <th>운영시간</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for row in shelters %}
+                        <tr>
+                            <td>{{ row.id }}</td>
+                            <td>{{ row.district_name }}</td>
+                            <td>{{ row.facility_name }}</td>
+                            <td>{{ row.address }}</td>
+                            <td>{{ row.facility_type }}</td>
+                            <td>{{ row.capacity }}</td>
+                            <td>{{ row.tel }}</td>
+                            <td>{{ row.weekday_hours }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                    </div>  
+                <div class="clear"></div>  
+            </div>    
+            
+            
+            <!--페이지-->
+            <div class="paging">
+                <ul style='display: flex;'>
+                    {% if current_page > 1 %}
+                        <li><a href="javascript:goPage(1);" class="start page-move"><span>처음</span></a></li>
+                        <li><a href="javascript:goPage({{ current_page - 1 }});" class="prev page-move"><span>이전</span></a></li>
+                    {% endif %}
+                    
+                    {% set start_page = max(1, current_page - 2) %}
+                    {% set end_page = min(total_pages, current_page + 2) %}
+                    
+                    {% for p in range(start_page, end_page + 1) %}
+                        <li {% if p == current_page %}class="stay"{% endif %}>
+                            <a href="javascript:goPage({{ p }});" title="{{ p }}페이지">{{ p }}</a>
+                        </li>
+                    {% endfor %}
+                    
+                    {% if current_page < total_pages %}
+                        <li><a href="javascript:goPage({{ current_page + 1 }});" class="next page-move"><span>다음</span></a></li>
+                        <li><a href="javascript:goPage({{ total_pages }});" class="end page-move"><span>마지막</span></a></li>
+                    {% endif %}
+                </ul>
+            </div>
+            <script>
+                function goPage(page) {
+                    location.href = '/form?page=' + page;
+                }
+            </script>
+
+            
+        </div>
+    </div>
+
+</div>
+
+
+
+
+<!-- footer -->
+<div>
+    <footer>
+		<p>&copy; 2024 Made by 낙지탕탕이. <i class="fa fa-love"></i><a href="https://bootstrapthemes.co">All rights reserved.</a>
+		</p>
+    </footer>
+</div>
+
+
+
+
+<div>
+
+    <!-- JavaScript 파일들 -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="assets/js/map.js"></script>
+</div>
+    <script src="assets/js/jquery-1.10.2.js"></script>
+	</div>
+	<!-- Bootstrap Js -->   
+    <script src="assets/js/bootstrap.min.js"></script>
+	
+	<script src="assets/materialize/js/materialize.min.js"></script>
+	
+    <!-- Metis Menu Js -->
+    <script src="assets/js/jquery.metisMenu.js"></script>
+    <!-- Morris Chart Js -->
+    <script src="assets/js/morris/raphael-2.1.0.min.js"></script>
+    <script src="assets/js/morris/morris.js"></script>
+	
+	
+	<script src="assets/js/easypiechart.js"></script>
+	<script src="assets/js/easypiechart-data.js"></script>
+	
+	<script src="assets/js/Lightweight-Chart/jquery.chart.js"></script>
+	
+    <!-- Custom Js -->
+    <script src="assets/js/custom-scripts.js"></script> 
+
+</body>
+
+</html>

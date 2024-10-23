@@ -1,0 +1,441 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>미세먼지 Dashboard</title> 
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" href="assets/materialize/css/materialize.min.css" media="screen,projection" />
+    <!-- Bootstrap Styles-->
+    <link href="assets/css/bootstrap.css" rel="stylesheet" />
+    <!-- FontAwesome Styles-->
+    <link href="assets/css/font-awesome.css" rel="stylesheet" />
+    <link href="assets/css/tooltool.css" rel="stylesheet" />  <!--    tooltool은 chart에서만 사용@@@@@@@@@@@@@   -->
+    <!-- Morris Chart Styles-->
+    <link href="assets/js/morris/morris-0.4.3.min.css" rel="stylesheet" />
+    <!-- Custom Styles-->
+    <link href="assets/css/custom-styles.css" rel="stylesheet" />
+    <!-- Google Fonts-->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+    <link rel="stylesheet" href="assets/js/Lightweight-Chart/cssCharts.css"> 
+</head>
+
+<body>
+    <div id="wrapper">
+        <nav class="navbar navbar-default top-navbar" role="navigation">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle waves-effect waves-dark" data-toggle="collapse" data-target=".sidebar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand waves-effect waves-dark" href="/"><i class="large material-icons">sunny</i> <strong>미세먼지</strong></a>
+				
+		<div id="sideNav" href=""><i class="material-icons dp48">toc</i></div>
+            </div>
+
+
+        </nav>
+<ul id="dropdown3" class="dropdown-content dropdown-tasks w250">
+<li>
+		<a href="#">
+			<div>
+				<p>
+					<strong>Task 1</strong>
+					<span class="pull-right text-muted">60% Complete</span>
+				</p>
+				<div class="progress progress-striped active">
+					<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
+						<span class="sr-only">60% Complete (success)</span>
+					</div>
+				</div>
+			</div>
+		</a>
+	</li>
+	<li class="divider"></li>
+	<li>
+		<a href="#">
+			<div>
+				<p>
+					<strong>Task 2</strong>
+					<span class="pull-right text-muted">28% Complete</span>
+				</p>
+				<div class="progress progress-striped active">
+					<div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="28" aria-valuemin="0" aria-valuemax="100" style="width: 28%">
+						<span class="sr-only">28% Complete</span>
+					</div>
+				</div>
+			</div>
+		</a>
+	</li>
+	<li class="divider"></li>
+	<li>
+		<a href="#">
+			<div>
+				<p>
+					<strong>Task 3</strong>
+					<span class="pull-right text-muted">60% Complete</span>
+				</p>
+				<div class="progress progress-striped active">
+					<div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
+						<span class="sr-only">60% Complete (warning)</span>
+					</div>
+				</div>
+			</div>
+		</a>
+	</li>
+	<li class="divider"></li>
+	<li>
+		<a href="#">
+			<div>
+				<p>
+					<strong>Task 4</strong>
+					<span class="pull-right text-muted">85% Complete</span>
+				</p>
+				<div class="progress progress-striped active">
+					<div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width: 85%">
+						<span class="sr-only">85% Complete (danger)</span>
+					</div>
+				</div>
+			</div>
+		</a>
+	</li>
+	<li class="divider"></li>
+	<li>
+</ul>   
+<ul id="dropdown4" class="dropdown-content dropdown-tasks w250 taskList">
+  <li>
+                                <div>
+                                    <strong>John Doe</strong>
+                                    <span class="pull-right text-muted">
+                                        <em>Today</em>
+                                    </span>
+                                </div>
+                                <p>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s...</p>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                                <div>
+                                    <strong>John Smith</strong>
+                                    <span class="pull-right text-muted">
+                                        <em>Yesterday</em>
+                                    </span>
+                                </div>
+                                <p>Lorem Ipsum has been the industry's standard dummy text ever since an kwilnw...</p>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <strong>John Smith</strong>
+                                    <span class="pull-right text-muted">
+                                        <em>Yesterday</em>
+                                    </span>
+                                </div>
+                                <p>Lorem Ipsum has been the industry's standard dummy text ever since the...</p>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a class="text-center" href="#">
+                                <strong>Read All Messages</strong>
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        </li>
+</ul>  
+	   <!--/. NAV TOP  -->
+        <!--/. NAV TOP  -->
+        <nav class="navbar-default navbar-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav" id="main-menu">
+
+                    <li>
+                        <a class="active-menu waves-effect waves-dark" href="/"><i class="fa fa-dashboard"></i> 오늘의 미세먼지</a>
+                    </li>
+
+					<li>
+                        <a class="waves-effect waves-dark" href="/chart"><i class="fa fa-bar-chart-o"></i> 미세먼지 예측</a>
+                    </li>
+
+                    <li>
+                        <a  class="waves-effect waves-dark" href="/form"><i class="fa fa-edit"></i> 미세먼지 대피소 </a>
+                    </li>
+                </ul>
+
+            </div>
+
+        </nav>
+        <!-- /. NAV SIDE  -->
+        <div id="page-wrapper">
+		  <div class="header"> 
+                        <h1 class="page-header">
+                             미세먼지 예측 
+                        </h1>
+						<ol class="breadcrumb">
+					  <li><a href="#">Home</a></li>
+					  <li><a href="#">Charts</a></li>
+					  <li class="active">Data</li>
+					</ol> 
+									
+		</div>
+            <div id="page-inner"> 
+             
+                <div class="row"> 
+                    
+                      
+                               <div class="col-md-6 col-sm-12 col-xs-12">                     
+                    <div class="card">
+                        <div class="card-action">
+                            <h3>PM10 미세먼지</h3>
+                        </div>
+                        <div class="card-content">
+                            <img src="/assets/img/map_0.jpg" class="map_img">
+                            <div class="tooltool {% if d_predictions[0] < 30 %}class-low{% elif d_predictions[0] < 80 %}class-medium{% elif d_predictions[0] < 150 %}class-high{% else %}class-very-high{% endif %}" style="top: 50%; left: 37.4%;">{{ d_predictions[0] }}</div>
+                            <div class="tooltool {% if d_predictions[1] < 30 %}class-low{% elif d_predictions[1] < 80 %}class-medium{% elif d_predictions[1] < 150 %}class-high{% else %}class-very-high{% endif %}" style="top: 43%; left: 34.8%;">{{ d_predictions[1] }}</div>
+                            <div class="tooltool {% if d_predictions[2] < 30 %}class-low{% elif d_predictions[2] < 80 %}class-medium{% elif d_predictions[2] < 150 %}class-high{% else %}class-very-high{% endif %}" style="top: 57.7%; left: 34.7%;">{{ d_predictions[2] }}</div>
+                            <div class="tooltool {% if d_predictions[3] < 30 %}class-low{% elif d_predictions[3] < 80 %}class-medium{% elif d_predictions[3] < 150 %}class-high{% else %}class-very-high{% endif %}" style="top: 32.1%; left: 26.1%;">{{ d_predictions[3] }}</div>
+                            <div class="tooltool {% if d_predictions[4] < 30 %}class-low{% elif d_predictions[4] < 80 %}class-medium{% elif d_predictions[4] < 150 %}class-high{% else %}class-very-high{% endif %}" style="top: 44.8%; left: 27.4%;">{{ d_predictions[4] }}</div>
+                            <div class="tooltool {% if d_predictions[5] < 30 %}class-low{% elif d_predictions[5] < 80 %}class-medium{% elif d_predictions[5] < 150 %}class-high{% else %}class-very-high{% endif %}" style="top: 51.7%; left: 23.7%;">{{ d_predictions[5] }}</div>
+                            <div class="tooltool {% if d_predictions[6] < 30 %}class-low{% elif d_predictions[6] < 80 %}class-medium{% elif d_predictions[6] < 150 %}class-high{% else %}class-very-high{% endif %}" style="top: 53.8%; left: 51.3%">{{ d_predictions[6] }}</div>
+                            <div class="tooltool {% if d_predictions[7] < 30 %}class-low{% elif d_predictions[7] < 80 %}class-medium{% elif d_predictions[7] < 150 %}class-high{% else %}class-very-high{% endif %}" style="top: 52%; left: 44.6%;">{{ d_predictions[7] }}</div>
+                            <div class="tooltool {% if d_predictions[8] < 30 %}class-low{% elif d_predictions[8] < 80 %}class-medium{% elif d_predictions[8] < 150 %}class-high{% else %}class-very-high{% endif %}" style="top: 38.7%; left: 52.5%;">{{ d_predictions[8] }}</div>
+                            <div class="tooltool {% if d_predictions[9] < 30 %}class-low{% elif d_predictions[9] < 80 %}class-medium{% elif d_predictions[9] < 150 %}class-high{% else %}class-very-high{% endif %}" style="top: 43%; left: 46.3%;">{{ d_predictions[9] }}</div>
+                            <div class="tooltool {% if d_predictions[10] < 30 %}class-low{% elif d_predictions[10] < 80 %}class-medium{% elif d_predictions[10] < 150 %}class-high{% else %}class-very-high{% endif %}" style="top: 38%; left: 40.5%;">{{ d_predictions[10] }}</div>
+                            <div class="tooltool {% if d_predictions[11] < 30 %}class-low{% elif d_predictions[11] < 80 %}class-medium{% elif d_predictions[11] < 150 %}class-high{% else %}class-very-high{% endif %}" style="top: 20%; left: 43.1%;">{{ d_predictions[11] }}</div>
+                            <div class="tooltool {% if d_predictions[12] < 30 %}class-low{% elif d_predictions[12] < 80 %}class-medium{% elif d_predictions[12] < 150 %}class-high{% else %}class-very-high{% endif %}" style="top: 26.7%; left: 39.3%;">{{ d_predictions[12] }}</div>
+                            <div class="tooltool {% if d_predictions[13] < 30 %}class-low{% elif d_predictions[13] < 80 %}class-medium{% elif d_predictions[13] < 150 %}class-high{% else %}class-very-high{% endif %}" style="top: 26.7%; left: 50%;">{{ d_predictions[13] }}</div>
+                            <div class="tooltool {% if d_predictions[14] < 30 %}class-low{% elif d_predictions[14] < 80 %}class-medium{% elif d_predictions[14] < 150 %}class-high{% else %}class-very-high{% endif %}" style="top: 49.7%; left: 10%;">{{ d_predictions[14] }}</div>
+                            <div class="tooltool {% if d_predictions[15] < 30 %}class-low{% elif d_predictions[15] < 80 %}class-medium{% elif d_predictions[15] < 150 %}class-high{% else %}class-very-high{% endif %}" style="top: 69.8%; left: 12.2%;">{{ d_predictions[15] }}</div>
+                            <div class="tooltool {% if d_predictions[16] < 30 %}class-low{% elif d_predictions[16] < 80 %}class-medium{% elif d_predictions[16] < 150 %}class-high{% else %}class-very-high{% endif %}" style="top: 61.3%; left: 22.9%;">{{ d_predictions[16] }}</div>
+                            <div class="tooltool {% if d_predictions[17] < 30 %}class-low{% elif d_predictions[17] < 80 %}class-medium{% elif d_predictions[17] < 150 %}class-high{% else %}class-very-high{% endif %}" style="top: 66.4%; left: 30.2%;">{{ d_predictions[17] }}</div>
+                            <div class="tooltool {% if d_predictions[18] < 30 %}class-low{% elif d_predictions[18] < 80 %}class-medium{% elif d_predictions[18] < 150 %}class-high{% else %}class-very-high{% endif %}" style="top: 77.4%; left: 29.5%;">{{ d_predictions[18] }}</div>
+                            <div class="tooltool {% if d_predictions[19] < 30 %}class-low{% elif d_predictions[19] < 80 %}class-medium{% elif d_predictions[19] < 150 %}class-high{% else %}class-very-high{% endif %}" style="top: 78%; left: 21.9%;">{{ d_predictions[19] }}</div>
+                            <div class="tooltool {% if d_predictions[20] < 30 %}class-low{% elif d_predictions[20] < 80 %}class-medium{% elif d_predictions[20] < 150 %}class-high{% else %}class-very-high{% endif %}" style="top: 61.7%; left: 14.6%;">{{ d_predictions[20] }}</div>
+                            <div class="tooltool {% if d_predictions[21] < 30 %}class-low{% elif d_predictions[21] < 80 %}class-medium{% elif d_predictions[21] < 150 %}class-high{% else %}class-very-high{% endif %}" style="top: 69.4%; left: 46.8%;">{{ d_predictions[21] }}</div>
+                            <div class="tooltool {% if d_predictions[22] < 30 %}class-low{% elif d_predictions[22] < 80 %}class-medium{% elif d_predictions[22] < 150 %}class-high{% else %}class-very-high{% endif %}" style="top: 74%; left: 40.5%;">{{ d_predictions[22] }}</div>
+                            <div class="tooltool {% if d_predictions[23] < 30 %}class-low{% elif d_predictions[23] < 80 %}class-medium{% elif d_predictions[23] < 150 %}class-high{% else %}class-very-high{% endif %}" style="top: 65.8%; left: 55.6%;">{{ d_predictions[23] }}</div>
+                            <div class="tooltool {% if d_predictions[24] < 30 %}class-low{% elif d_predictions[24] < 80 %}class-medium{% elif d_predictions[24] < 150 %}class-high{% else %}class-very-high{% endif %}" style="top: 51%; left: 60.8%;">{{ d_predictions[24] }}</div>
+                            <img src="/assets/img/범례.png" style="margin: 3.2% ;width: 23%; height: auto;">
+                        </div>  
+                    </div>            
+                </div>
+                      <div class="col-md-6 col-sm-12 col-xs-12">                     
+                    <div class="card">
+                        <div class="card-action">
+                            <h3>서울시 평균 미세먼지 농도</h3>
+                        </div>
+                        <div class="card-content">
+                            <table class="air-quality-table">
+                                <tr>
+                                    <th>실시간</th>
+                                    <th>예측</th>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="faceimg">
+                                        {% if d_avg < 31 %}
+                                            <img src="/assets/img/good.png">
+                                        {% elif 30 < d_avg < 81   %}
+                                            <img src="/assets/img/normal.png">
+                                        {% elif 80 < d_avg < 150   %}
+                                            <img src="/assets/img/bad.png">
+                                        {% elif 150 < d_avg %}
+                                            <img src="/assets/img/very bad.png">
+                                        {% endif %}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="faceimg">
+                                        {% if pred_d_avg < 31 %}
+                                            <img src="/assets/img/good.png" alt="실시간 이미지">
+                                        {% elif 30 < pred_d_avg < 81   %}
+                                            <img src="/assets/img/normal.png" alt="실시간 이미지">
+                                        {% elif 80 < pred_d_avg < 150   %}
+                                            <img src="/assets/img/bad1.png" alt="실시간 이미지">
+                                        {% elif 150 < pred_d_avg %}
+                                            <img src="/assets/img/very bad.png" alt="실시간 이미지">
+                                        {% endif %}
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>{{ d_avg }} ㎍/㎥</td>
+                                    <td>{{ pred_d_avg }} ㎍/㎥</td>
+                                </tr>
+                                <tr>
+                                {% if d_avg < 31 %}
+                                    <td>좋음</td>
+                                {% elif 30 < d_avg < 81   %}
+                                    <td>보통</td>
+                                {% elif 80 < d_avg < 150   %}
+                                    <td>나쁨</td>
+                                {% elif 150 < d_avg %}
+                                    <td>매우 나쁨</td>
+                                {% endif %}
+                                {% if pred_d_avg < 31 %}
+                                    <td>좋음</td>
+                                {% elif 30 < pred_d_avg < 81   %}
+                                    <td>보통</td>
+                                {% elif 80 < pred_d_avg < 150   %}
+                                    <td>나쁨</td>
+                                {% elif 150 < pred_d_avg %}
+                                    <td>매우 나쁨</td>
+                                {% endif %}
+                                </tr>
+                            </table>
+                        </div>
+                    </div>            
+                </div> 
+                
+           </div>
+                 <!-- /. ROW  -->
+                <div class="row">                     
+                      
+                               <div class="col-md-6 col-sm-12 col-xs-12">                     
+                    <div class="card">
+                        <div class="card-action">
+                            <h3>PM25 초미세먼지</h3>
+                        </div>
+                        <div class="card-content">
+                            <img src="/assets/img/map_0.jpg" class="map_img">
+                            <div class="tooltool {% if s_predictions[0] < 15 %}class-low{% elif s_predictions[0] < 35 %}class-medium{% elif s_predictions[0] < 75 %}class-high{% else %}class-very-high{% endif %}" style="top: 50%; left: 37.4%;">{{ s_predictions[0] }}</div>
+                            <div class="tooltool {% if s_predictions[1] < 15 %}class-low{% elif s_predictions[1] < 35 %}class-medium{% elif s_predictions[1] < 75 %}class-high{% else %}class-very-high{% endif %}" style="top: 43%; left: 34.8%;">{{ s_predictions[1] }}</div>
+                            <div class="tooltool {% if s_predictions[2] < 15 %}class-low{% elif s_predictions[2] < 35 %}class-medium{% elif s_predictions[2] < 75 %}class-high{% else %}class-very-high{% endif %}" style="top: 57.7%; left: 34.7%;">{{ s_predictions[2] }}</div>
+                            <div class="tooltool {% if s_predictions[3] < 15 %}class-low{% elif s_predictions[3] < 35 %}class-medium{% elif s_predictions[3] < 75 %}class-high{% else %}class-very-high{% endif %}" style="top: 32.1%; left: 26.1%;">{{ s_predictions[3] }}</div>
+                            <div class="tooltool {% if s_predictions[4] < 15 %}class-low{% elif s_predictions[4] < 35 %}class-medium{% elif s_predictions[4] < 75 %}class-high{% else %}class-very-high{% endif %}" style="top: 44.8%; left: 27.4%;">{{ s_predictions[4] }}</div>
+                            <div class="tooltool {% if s_predictions[5] < 15 %}class-low{% elif s_predictions[5] < 35 %}class-medium{% elif s_predictions[5] < 75 %}class-high{% else %}class-very-high{% endif %}" style="top: 51.7%; left: 23.7%;">{{ s_predictions[5] }}</div>
+                            <div class="tooltool {% if s_predictions[6] < 15 %}class-low{% elif s_predictions[6] < 35 %}class-medium{% elif s_predictions[6] < 75 %}class-high{% else %}class-very-high{% endif %}" style="top: 53.8%; left: 51.3%">{{ s_predictions[6] }}</div>
+                            <div class="tooltool {% if s_predictions[7] < 15 %}class-low{% elif s_predictions[7] < 35 %}class-medium{% elif s_predictions[7] < 75 %}class-high{% else %}class-very-high{% endif %}" style="top: 52%; left: 44.6%;">{{ s_predictions[7] }}</div>
+                            <div class="tooltool {% if s_predictions[8] < 15 %}class-low{% elif s_predictions[8] < 35 %}class-medium{% elif s_predictions[8] < 75 %}class-high{% else %}class-very-high{% endif %}" style="top: 38.7%; left: 52.5%;">{{ s_predictions[8] }}</div>
+                            <div class="tooltool {% if s_predictions[9] < 15 %}class-low{% elif s_predictions[9] < 35 %}class-medium{% elif s_predictions[9] < 75 %}class-high{% else %}class-very-high{% endif %}" style="top: 43%; left: 46.3%;">{{ s_predictions[9] }}</div>
+                            <div class="tooltool {% if s_predictions[10] < 15 %}class-low{% elif s_predictions[10] < 35 %}class-medium{% elif s_predictions[10] < 75 %}class-high{% else %}class-very-high{% endif %}" style="top: 38%; left: 40.5%;">{{ s_predictions[10] }}</div>
+                            <div class="tooltool {% if s_predictions[11] < 15 %}class-low{% elif s_predictions[11] < 35 %}class-medium{% elif s_predictions[11] < 75 %}class-high{% else %}class-very-high{% endif %}" style="top: 20%; left: 43.1%;">{{ s_predictions[11] }}</div>
+                            <div class="tooltool {% if s_predictions[12] < 15 %}class-low{% elif s_predictions[12] < 35 %}class-medium{% elif s_predictions[12] < 75 %}class-high{% else %}class-very-high{% endif %}" style="top: 26.7%; left: 39.3%;">{{ s_predictions[12] }}</div>
+                            <div class="tooltool {% if s_predictions[13] < 15 %}class-low{% elif s_predictions[13] < 35 %}class-medium{% elif s_predictions[13] < 75 %}class-high{% else %}class-very-high{% endif %}" style="top: 26.7%; left: 50%;">{{ s_predictions[13] }}</div>
+                            <div class="tooltool {% if s_predictions[14] < 15 %}class-low{% elif s_predictions[14] < 35 %}class-medium{% elif s_predictions[14] < 75 %}class-high{% else %}class-very-high{% endif %}" style="top: 49.7%; left: 10%;">{{ s_predictions[14] }}</div>
+                            <div class="tooltool {% if s_predictions[15] < 15 %}class-low{% elif s_predictions[15] < 35 %}class-medium{% elif s_predictions[15] < 75 %}class-high{% else %}class-very-high{% endif %}" style="top: 69.8%; left: 12.2%;">{{ s_predictions[15] }}</div>
+                            <div class="tooltool {% if s_predictions[16] < 15 %}class-low{% elif s_predictions[16] < 35 %}class-medium{% elif s_predictions[16] < 75 %}class-high{% else %}class-very-high{% endif %}" style="top: 61.3%; left: 22.9%;">{{ s_predictions[16] }}</div>
+                            <div class="tooltool {% if s_predictions[17] < 15 %}class-low{% elif s_predictions[17] < 35 %}class-medium{% elif s_predictions[17] < 75 %}class-high{% else %}class-very-high{% endif %}" style="top: 66.4%; left: 30.2%;">{{ s_predictions[17] }}</div>
+                            <div class="tooltool {% if s_predictions[18] < 15 %}class-low{% elif s_predictions[18] < 35 %}class-medium{% elif s_predictions[18] < 75 %}class-high{% else %}class-very-high{% endif %}" style="top: 77.4%; left: 29.5%;">{{ s_predictions[18] }}</div>
+                            <div class="tooltool {% if s_predictions[19] < 15 %}class-low{% elif s_predictions[19] < 35 %}class-medium{% elif s_predictions[19] < 75 %}class-high{% else %}class-very-high{% endif %}" style="top: 78%; left: 21.9%;">{{ s_predictions[19] }}</div>
+                            <div class="tooltool {% if s_predictions[20] < 15 %}class-low{% elif s_predictions[20] < 35 %}class-medium{% elif s_predictions[20] < 75 %}class-high{% else %}class-very-high{% endif %}" style="top: 61.7%; left: 14.6%;">{{ s_predictions[20] }}</div>
+                            <div class="tooltool {% if s_predictions[21] < 15 %}class-low{% elif s_predictions[21] < 35 %}class-medium{% elif s_predictions[21] < 75 %}class-high{% else %}class-very-high{% endif %}" style="top: 69.4%; left: 46.8%;">{{ s_predictions[21] }}</div>
+                            <div class="tooltool {% if s_predictions[22] < 15 %}class-low{% elif s_predictions[22] < 35 %}class-medium{% elif s_predictions[22] < 75 %}class-high{% else %}class-very-high{% endif %}" style="top: 74%; left: 40.5%;">{{ s_predictions[22] }}</div>
+                            <div class="tooltool {% if s_predictions[23] < 15 %}class-low{% elif s_predictions[23] < 35 %}class-medium{% elif s_predictions[23] < 75 %}class-high{% else %}class-very-high{% endif %}" style="top: 65.8%; left: 55.6%;">{{ s_predictions[23] }}</div>
+                            <div class="tooltool {% if s_predictions[24] < 15 %}class-low{% elif s_predictions[24] < 35 %}class-medium{% elif s_predictions[24] < 75 %}class-high{% else %}class-very-high{% endif %}" style="top: 51%; left: 60.8%;">{{ s_predictions[24] }}</div>
+                            <img src="/assets/img/초미세범례.png" style="margin: 3.2% ;width: 23%; height: auto;">
+                        </div>
+                    </div>            
+                </div>
+                      <div class="col-md-6 col-sm-12 col-xs-12">                     
+                    <div class="card">
+                        <div class="card-action">
+                            <h3>서울시 평균 초미세먼지 농도</h3>
+                        </div>
+
+                        <div class="card-content">                            
+							<table class="air-quality-table">
+                                <tr>
+                                    <th>실시간</th>
+                                    <th>예측</th>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="faceimg">
+                                        {% if s_avg < 16 %}
+                                            <img src="/assets/img/good.png">
+                                        {% elif 15 < s_avg < 36   %}
+                                            <img src="/assets/img/normal.png">
+                                        {% elif 35 < s_avg < 75   %}
+                                            <img src="/assets/img/bad1.png">
+                                        {% elif 75 < s_avg  %}
+                                            <img src="/assets/img/very bad.png">
+                                        {% endif %}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="faceimg">
+                                        {% if pred_s_avg < 16 %}
+                                            <img src="/assets/img/good.png"">
+                                        {% elif 15 < pred_s_avg < 36   %}
+                                            <img src="/assets/img/normal.png">
+                                        {% elif 36 < pred_s_avg < 75   %}
+                                            <img src="/assets/img/bad.png">
+                                        {% elif 75 < pred_s_avg  %}
+                                            <img src="/assets/img/very bad.png">
+                                        {% endif %}
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>{{ s_avg }} ㎍/㎥</td>
+                                    <td>{{ pred_s_avg }} ㎍/㎥</td>
+                                </tr>
+                                <tr>
+                                {% if s_avg < 31 %}
+                                    <td>좋음</td>
+                                {% elif 30 < s_avg < 81   %}
+                                    <td>보통</td>
+                                {% elif 80 < s_avg < 150   %}
+                                    <td>나쁨</td>
+                                {% elif 75 < pred_s_avg  %}
+                                    <td>매우 나쁨</td>
+                                {% endif %}
+                                {% if pred_s_avg < 31 %}
+                                    <td>좋음</td>
+                                {% elif 30 < pred_s_avg < 81   %}
+                                    <td>보통</td>
+                                {% elif 80 < pred_s_avg < 150   %}
+                                    <td>나쁨</td>
+                                {% elif 75 < pred_s_avg  %}
+                                    <td>매우 나쁨</td>
+                                {% endif %}
+                                </tr>
+                            </table>
+                            
+                        </div>
+                    </div>            
+                </div> 
+                
+           </div>
+                 <!-- /. ROW  -->
+                <footer><p>&copy; 2024 Made by 낙지탕탕이. <i class="fa fa-love"></i><a href="https://bootstrapthemes.co">All rights reserved.</a>
+                 </p></footer>
+				</div>
+             <!-- /. PAGE INNER  -->
+            </div>
+         <!-- /. PAGE WRAPPER  -->
+        </div>
+     <!-- /. WRAPPER  -->
+    <!-- JS Scripts-->
+    <!-- jQuery Js -->
+    <script src="assets/js/jquery-1.10.2.js"></script>
+	
+	<!-- Bootstrap Js -->
+    <script src="assets/js/bootstrap.min.js"></script>
+	
+	<script src="assets/materialize/js/materialize.min.js"></script>
+	
+    <!-- Metis Menu Js -->
+    <script src="assets/js/jquery.metisMenu.js"></script>
+    <!-- Morris Chart Js -->
+    <script src="assets/js/morris/raphael-2.1.0.min.js"></script>
+    <script src="assets/js/morris/morris.js"></script>
+	
+	
+	<script src="assets/js/easypiechart.js"></script>
+	<script src="assets/js/easypiechart-data.js"></script>
+	
+	 <script src="assets/js/Lightweight-Chart/jquery.chart.js"></script>
+	
+    <!-- Custom Js -->
+    <script src="assets/js/custom-scripts.js"></script> 
+ 
+
+</body>
+
+</html>
